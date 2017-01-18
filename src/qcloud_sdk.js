@@ -58,29 +58,6 @@ CosCloud.prototype.getCgiUrl = function (destPath) {
 
 };
 
-
-CosCloud.prototype.getAppSign = function (success, error, bucketName) {
-	var expired = this.getExpired();
-	var bucket = bucketName || this.bucket;
-	var url = this.sign_url + "?sign_type=appSign&expired=" + expired + "&bucketName=" + bucket;
-	wx.request({
-		url: url,
-		method: "GET",
-		success: success,
-		fail: error
-	});
-};
-
-CosCloud.prototype.getAppSignOnce = function (success, error, path, bucketName) {
-	var url = this.sign_url + "?sign_type=appSign_once&path=" + encodeURIComponent(path) + "&bucketName=" + bucketName;
-	wx.request({
-		url: url,
-        method: "GET",
-		success: success,
-		fail: error
-	});
-};
-
 CosCloud.prototype.updateFolder = function (success, error, bucketName, remotePath, bizAttribute) {
 	remotePath = fixPath.call(this, remotePath, 'folder');
 	this.updateBase(success, error, bucketName, remotePath, bizAttribute);
