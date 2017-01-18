@@ -149,10 +149,10 @@ Page({
     },
     // 复制文件
     copyFile: function () {
-        cos.copyFile(this.createCallBack('10. /test.png 文件复制'), this.createCallBack(), bucket, '/test.png', '/test-cp.png', 1); // overWrite==0 表示允许覆盖文件 1表示不允许覆盖
+        cos.copyFile(this.createCallBack('10. /test.png 文件复制'), this.createCallBack(), bucket, '/test.png', '/test-cp.png', 0); // overWrite==0 表示不允许覆盖文件 1表示允许覆盖
     },
     // 移动文件
     moveFile: function () {
-        cos.moveFile(this.createCallBack('11. /test.png 文件移动'), this.createCallBack(), bucket, '/test.png', '/test-mv.png', 1); // overWrite==0 表示允许覆盖文件 1表示不允许覆盖
+        cos.moveFile(this.createCallBack('11. /test.png 文件移动'), this.createCallBack(), bucket, '/test.png', '/test-mv.png', 0); // overWrite==0 表示不允许覆盖文件 1表示允许覆盖
     }
 });
