@@ -1,0 +1,17 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="usermotto">
+    <text class="user-motto">接口调用例子</text>
+    <button type="primary" class="user-button" bindtap="createFolder">1.创建目录 - createFolder</button>
+    <button type="primary" class="user-button" bindtap="getFolderList">2.列出目录 - getFolderList</button>
+    <button type="primary" class="user-button" bindtap="getFolderStat">3.查询目录属性 - getFolderStat</button>
+    <button type="primary" class="user-button" bindtap="updateFolder">4.更新目录属性 - updateFolder</button>
+    <button type="primary" class="user-button" bindtap="deleteFolder">5.删除目录 - deleteFolder</button>
+    <button type="primary" class="user-button" bindtap="uploadFile">6.简单上传文件 - uploadFile</button>
+    <button type="primary" class="user-button" bindtap="getFileStat">7.查询文件属性 - getFileStat</button>
+    <button type="primary" class="user-button" bindtap="updateFile">8.更新文件属性 - updateFile</button>
+    <button type="primary" class="user-button" bindtap="deleteFile">9.删除文件 - deleteFile</button>
+    <button type="primary" class="user-button" bindtap="copyFile">10.复制文件 - copyFile</button>
+    <button type="primary" class="user-button" bindtap="moveFile">11.移动文件 - moveFile</button>
+  </view>
+</view>

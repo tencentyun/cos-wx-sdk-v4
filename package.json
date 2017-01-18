@@ -1,0 +1,15 @@
+{
+  "name": "cos-wx-sdk-v4",
+  "version": "1.0.0",
+  "description": "wx-sdk-v4 for [腾讯云对象存储服务](http://wiki.qcloud.com/wiki/COS%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cd gulp && gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://git.code.oa.com/cdn/cos-wx-sdk-v4.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

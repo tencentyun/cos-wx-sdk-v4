@@ -1,0 +1,4 @@
+.idea
+node_modules
+/samples/album-app
+/samples/simple-app/index/config.js
