@@ -5,7 +5,9 @@
 ## 前期准备
 
 1. 请您到 https://console.qcloud.com/cos 获取您的项目 ID(appid)，bucket，secret_id 和 secret_key。
-3. 请您到 https://console.qcloud.com/cos 针对您要操作的 bucket 进行跨域（CORS）设置
+3. 请您到 https://console.qcloud.com/cos 针对您要操作的 bucket 进行跨域（CORS）设置，可以按照如下范例，修改来源 Origin：
+                                                                 
+    ![./cors.png](./cors.png)
 
 ## 配置
 
