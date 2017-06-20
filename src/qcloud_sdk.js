@@ -264,6 +264,18 @@ CosCloud.prototype.listBase = function (success, error, bucketName, remotePath, 
 };
 
 CosCloud.prototype.uploadFile = function (success, error, bucketName, remotePath, tempFilePath, insertOnly) {
+
+	if (typeof success === 'object') {
+		var options = success;
+        success = options.success;
+        error = options.error;
+        bucketName = options.bucket;
+        remotePath = options.path;
+        tempFilePath = options.filepath;
+        insertOnly = options.insertOnly;
+        var bizAttr = options.bizAttr;
+	}
+
 	var that = this;
 	remotePath = fixPath(remotePath);
 	that.getAppSign(function (sign) {
@@ -271,9 +283,12 @@ CosCloud.prototype.uploadFile = function (success, error, bucketName, remotePath
 		var data = {
             op: 'upload'
         };
-		if (insertOnly >= 0) {//insertOnly==0 表示允许覆盖文件 1表示不允许 其他值忽略
-			data['insertOnly'] = insertOnly;
-		}
+        if (insertOnly >= 0) {//insertOnly==0 表示允许覆盖文件 1表示不允许 其他值忽略
+            data['insertOnly'] = insertOnly;
+        }
+        if (bizAttr) {
+            data['biz_attr'] = bizAttr;
+        }
         wx.uploadFile({
             url: url,
             filePath: tempFilePath,

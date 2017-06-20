@@ -130,7 +130,15 @@ Page({
                 if (res.tempFilePaths && res.tempFilePaths.length) {
                     var tempFilePath = res.tempFilePaths[0];
                     that.loading(1, '正在上传...');
-                    cos.uploadFile(that.createCallBack('6. /test.png 文件上传'), that.createCallBack(), bucket, '/test.png', tempFilePath, 0); // insertOnly==0 表示允许覆盖文件 1表示不允许覆盖
+                    cos.uploadFile({
+                        success: that.createCallBack('6. /test.png 文件上传'),
+                        error: that.createCallBack(),
+                        bucket: bucket,
+                        path: '/test.png',
+                        filepath: tempFilePath,
+                        insertOnly: 0, // insertOnly==0 表示允许覆盖文件 1表示不允许覆盖
+                        bizAttr: 'test-biz-val'
+                    });
                 }
             }
         });
