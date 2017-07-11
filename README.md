@@ -172,4 +172,4 @@ cos.copyFile(successCallback, errorCallback, bucket, '/test.png', '/test-cp.png'
 
 ## 反馈
 
-欢迎提 [issue](https://github.com/tencentyun/cos-wx-sdk-v4/issue)
+欢迎提 [issue](https://github.com/tencentyun/cos-wx-sdk-v4/issues)
