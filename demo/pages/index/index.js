@@ -137,7 +137,10 @@ Page({
                         path: '/test.png',
                         filepath: tempFilePath,
                         insertOnly: 0, // insertOnly==0 表示允许覆盖文件 1表示不允许覆盖
-                        bizAttr: 'test-biz-val'
+                        bizAttr: 'test-biz-val',
+                        onProgress: function (info) {
+                            console.log(info);
+                        }
                     });
                 }
             }
