@@ -6,6 +6,7 @@ function CosCloud(opt) {
 	this.bucket = opt.bucket;
 	this.region = opt.region;
 	this.sign_url = opt.sign_url;
+	this.progressInterval = opt.progressInterval || 1000;
 	if (opt.getAppSign) {
 		this.getAppSign = opt.getAppSign;
 	}
@@ -265,15 +266,59 @@ CosCloud.prototype.listBase = function (success, error, bucketName, remotePath, 
 
 CosCloud.prototype.uploadFile = function (success, error, bucketName, remotePath, tempFilePath, insertOnly) {
 
+	var options = {};
+	var bizAttr = {};
+	var onProgress;
 	if (typeof success === 'object') {
-		var options = success;
+        options = success;
+        bizAttr = options.bizAttr;
         success = options.success;
         error = options.error;
         bucketName = options.bucket;
         remotePath = options.path;
         tempFilePath = options.filepath;
         insertOnly = options.insertOnly;
-        var bizAttr = options.bizAttr;
+        if (options.onProgress && (typeof options.onProgress === 'function')) {
+            onProgress = (function () {
+                var time0 = Date.now();
+                var size0 = 0;
+                var FinishSize = 0;
+                var FileSize = 0;
+                var progressTimer;
+                var update = function () {
+                    progressTimer = 0;
+					var time1 = Date.now();
+					var speed = parseInt((FinishSize - size0) / ((time1 - time0) / 1000) * 100) / 100 || 0;
+					var percent = parseInt(FinishSize / FileSize * 100) / 100 || 0;
+					time0 = time1;
+					size0 = FinishSize;
+					try {
+						options.onProgress({
+							loaded: FinishSize,
+							total: FileSize,
+							speed: speed,
+							percent: percent
+						});
+					} catch (e) {
+					}
+                };
+                return function (info, immediately) {
+                	if (info) {
+                        FinishSize = info.totalBytesSent;
+                        FileSize = info.totalBytesExpectedToSend;
+					}
+                    if (immediately) {
+                        if (progressTimer) {
+                            clearTimeout(progressTimer);
+                            update();
+                        }
+                    } else {
+                        if (progressTimer) return;
+                        progressTimer = setTimeout(update, that.progressInterval || 1000);
+                    }
+                };
+            })();
+		}
 	}
 
 	var that = this;
@@ -289,7 +334,7 @@ CosCloud.prototype.uploadFile = function (success, error, bucketName, remotePath
         if (bizAttr) {
             data['biz_attr'] = bizAttr;
         }
-        wx.uploadFile({
+        var uploadTask = wx.uploadFile({
             url: url,
             filePath: tempFilePath,
             name: 'fileContent',
@@ -297,10 +342,12 @@ CosCloud.prototype.uploadFile = function (success, error, bucketName, remotePath
             formData: data,
             success: function (result) {
                 result.data = JSON.parse(result.data);
+                onProgress(null, true);
                 success.call(this, result);
 			},
             fail: error
         });
+        onProgress && uploadTask && uploadTask.onProgressUpdate && uploadTask.onProgressUpdate(onProgress);
 	});
 };
 
