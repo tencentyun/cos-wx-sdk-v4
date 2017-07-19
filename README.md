@@ -91,6 +91,9 @@ var successCallback = function (result) {
 var errorCallback = function (result) {
     console.log('success', result);
 }
+var progressCallback = function (info) {
+    console.log('success', result);
+}
 ```
 
 ### 上传程序示例
@@ -104,7 +107,16 @@ wx.chooseImage({
         if (res.tempFilePaths && res.tempFilePaths.length) {
             var tempFilePath = res.tempFilePaths[0];
             wx.showToast({title: '正在上传...', icon: 'loading', duration: 60000});
-            cos.uploadFile(successCallback, errorCallback, bucket, '/test.png', tempFilePath, 0);//insertOnly==0 表示允许覆盖文件 1表示不允许覆盖
+            cos.uploadFile({
+                success: successCallback,
+                error: errorCallback,
+                onProgress: progressCallback, // 返回 info 对象，带有 loaded、total、percent、speed 四个字段
+                bucket: 'wx',
+                path: '/test.png',
+                filepath: tempFilePath,
+                insertOnly: 0, // insertOnly==0 表示允许覆盖文件 1表示不允许覆盖
+                bizAttr: 'test-biz-val'
+            });
         }
     }
 });

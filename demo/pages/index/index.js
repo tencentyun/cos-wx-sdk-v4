@@ -28,6 +28,7 @@ var cos = new CosCloud({
     appid: appid, // APPID 必填参数
     bucket: bucket, // bucketName 必填参数
     region: region, // 地域信息 必填参数 华南地区填gz 华东填sh 华北填tj
+    progressInterval: 1000, // 控制上传进度回调间隔
     getAppSign: function (callback) {//获取签名 必填参数
 
         // 下面简单讲一下获取签名的几种办法
