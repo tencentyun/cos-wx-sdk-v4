@@ -1,9 +1,9 @@
 # cos-wx-sdk-v4
 
+微信小程序 sdk for [腾讯云对象存储服务](https://www.qcloud.com/product/cos)
+
 由于 v4 接口只能上传20MB文件，小程序上传 COS 请使用来上传：
 https://github.com/tencentyun/cos-wx-sdk-v5
-
-微信小程序 sdk for [腾讯云对象存储服务](https://www.qcloud.com/product/cos)
 
 ## 前期准备
 
